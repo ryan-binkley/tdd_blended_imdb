@@ -1,13 +1,12 @@
 const fs = require("fs");
-const bodyParser = require("body-parser");
 
 const express = require("express");
 const app = express();
 const port = 3001;
 const cors = require("cors");
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cors());
 
 const movies = JSON.parse(fs.readFileSync("movies.JSON"));
@@ -30,15 +29,6 @@ app.get("/movies", (req, res) => {
 app.get("/movies/:movieId", (req, res) =>
   res.send(movies.find((movie) => movie.movieId === +req.params.movieId))
 );
-
-// app.get("/findMovies", (req, res) => {
-//   const query = decodeURIComponent(req.query.search);
-//   const filteredMovies = movies.filter((movie) =>
-//     movie.title.toLowerCase().includes(query.toLowerCase())
-//   );
-
-//   res.send(filteredMovies);
-// });
 
 // UNCOMMENT CODE BELOW FOR STRETCH GOALS
 // const reviews = [{email: 'johndoe@gmail.com', movieId: 1, reviewTitle: "Director is a scumbag", reviewText: "I can't believe Gunn said those things on Twitter... Makes me not want to watch this movie!!!"}]
