@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Container,Row,Col, Button, Form, Nav} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({setSelectedMovie}) => {
+  const [movieName,setMovieName] = useState(null);
+  const [query, setQuery] = useState(null)
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  }
+
   
-
   return(
     <Nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
@@ -18,8 +24,8 @@ const Navbar = () => {
                 <Link to='/' id='nav-home' className="nav-link active text-light" aria-current="page">Home</Link>
               </li>
             </ul>
-            <Form className="d-flex" role="search">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <Form onSubmit = {(event)=> handleSubmit(event) } className="d-flex" role="search">
+              <input onChange = {(event)=>setQuery(event.target.value)} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
               <Button className="btn btn-outline-warning" type="submit">Search</Button>
             </Form>
           </div>

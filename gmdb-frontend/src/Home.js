@@ -1,10 +1,15 @@
 import React, { useState,useEffect } from 'react';
 import { Container,Row,Col } from 'react-bootstrap';
 import {Link} from 'react-router-dom'
+import { createContext } from 'react';
+
+export const MovieContext = createContext(null)
 
 const Home = ({setSelectedMovie}) => {
-  const [movies,setMovies] = useState(null)
-  const [loading,setLoading] = useState(true)
+
+
+  const [movies,setMovies] = useState(null);
+  const [loading,setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true)
@@ -29,10 +34,9 @@ const Home = ({setSelectedMovie}) => {
         <h1>Home</h1>
         <Row>
           {movies.map((movie)=>{
-              // if(checkIfImageExists(movie.poster)){
                 return(
                   <Col className='movie-container py-2 px-2'>
-                    <Link to='/detail'>
+                    <Link to= {`/detail/${movie.movieId}`}>
                       <img 
                       onClick = {()=>handleClick(movie)}
                       src={movie.poster} 
@@ -42,7 +46,6 @@ const Home = ({setSelectedMovie}) => {
                     </Link>  
                   </Col>
                 )
-              // }
           })}
         </Row>
       </Container>

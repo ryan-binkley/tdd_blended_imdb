@@ -10,10 +10,10 @@ function App() {
   const [selectedMovie, setSelectedMovie] = useState(null)
   return (
     <div className="App">
-      <Navbar />
+      <Navbar setSelectedMovie={setSelectedMovie} />
       <Routes>
         <Route path='/' element={<Home setSelectedMovie={setSelectedMovie} />} />
-        <Route path='/detail' element={<Detail selectedMovie={selectedMovie} />} />
+        <Route path='/detail/:id' element={<Detail selectedMovie={selectedMovie} />} />
       </Routes>
       
     </div>
