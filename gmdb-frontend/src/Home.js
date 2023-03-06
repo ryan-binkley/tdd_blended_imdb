@@ -1,10 +1,10 @@
 import React, { useState,useEffect } from 'react';
 import { Container,Row,Col } from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 
-const Home = () => {
+const Home = ({setSelectedMovie}) => {
   const [movies,setMovies] = useState(null)
   const [loading,setLoading] = useState(true)
-  const [selectedMovie, setSelectedMovie] = useState(null)
 
   useEffect(() => {
     setLoading(true)
@@ -18,38 +18,31 @@ const Home = () => {
     .finally(setLoading(false))
   },[])
 
- // CHECK IF IMAGE EXISTS
-function checkIfImageExists(url) {
-  const img = new Image();
-  img.src = url;
-  
-  if (img.complete) {
-    return true;
-  } else {
-    img.onload = () => {
-      return true;
-    };
-    
-    img.onerror = () => {
-      return false;
-    };
+  const handleClick = (movie) => {
+    setSelectedMovie(movie)
   }
-}
 
   if(movies && !loading){
 
     return(
-      <Container>
+      <Container className='home-container'>
         <h1>Home</h1>
         <Row>
           {movies.map((movie)=>{
-            if(checkIfImageExists(movie.poster)){
-              return(
-                <Col>
-                  <img src={movie.poster} alt='poster'></img>
-                </Col>
-              )
-            }
+              // if(checkIfImageExists(movie.poster)){
+                return(
+                  <Col className='movie-container py-2 px-2'>
+                    <Link to='/detail'>
+                      <img 
+                      onClick = {()=>handleClick(movie)}
+                      src={movie.poster} 
+                      alt={movie.title}
+                      height='445px'
+                      width='300px'></img>
+                    </Link>  
+                  </Col>
+                )
+              // }
           })}
         </Row>
       </Container>
